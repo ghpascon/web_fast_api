@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 400px;">
+    <h2 class="mb-4 text-center">{{ title }}</h2>
+
+    <form method="post" action="/auth/register">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+        <div class="mb-3">
+            <label for="username" class="form-label">Usuário</label>
+            <input type="text" id="username" name="username" required class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Senha</label>
+            <input type="password" id="password" name="password" required class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="secret_key" class="form-label">Secret Key</label>
+            <input type="password" id="secret_key" name="secret_key" required class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">Registrar</button>
+    </form>
+</div>
+{% endblock %}
