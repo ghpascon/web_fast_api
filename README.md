@@ -46,27 +46,6 @@ Este projeto é uma aplicação web desenvolvida com **FastAPI**, que possui:
 
 ---
 
-## 📁 Estrutura Recomendada do Projeto
-
-project/<br>
-│<br>
-├── app/<br>
-│   ├── routes/<br>
-│   │   ├── auth.py<br>
-│   │   └── readme.py<br>
-│   ├── models/<br>
-│   └── templates/<br>
-│       └── auth/<br>
-│           └── login.html<br>
-│<br>
-├── static/<br>
-├── config/<br>
-│   └── config.json<br>
-├── README.md<br>
-├── main.py<br>
-├── requirements.txt<br>
-
----
 
 ## 🧠 Observações
 

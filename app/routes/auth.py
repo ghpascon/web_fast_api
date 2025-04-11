@@ -28,7 +28,7 @@ async def login_get(request: Request, mensagem: str = Query(None), next_page: st
         "request": request,
         "title": "Login",
         "alerts": [msg_alert],
-        "now": datetime.now(),
+
         "csrf_token": csrf_token,
         "next_page":next_page
     })
@@ -48,7 +48,7 @@ async def login_post(
             "request": request,
             "title": "Login",
             "alerts": [{"text": "Token CSRF inválido.", "class": "alert-danger"}],
-            "now": datetime.now(),
+
             "csrf_token": get_csrf_token(request),
             "next_page":next_page
         })
@@ -62,7 +62,7 @@ async def login_post(
             "request": request,
             "title": "Login",
             "alerts": [{"text": str(e), "class": "alert-danger"}],
-            "now": datetime.now(),
+
             "csrf_token": get_csrf_token(request),
             "next_page":next_page
         })
@@ -76,7 +76,7 @@ async def login_post(
             "request": request,
             "title": "Login",
             "alerts": [{"text": "Usuário ou senha incorretos.", "class": "alert-danger"}],
-            "now": datetime.now(),
+
             "csrf_token": get_csrf_token(request),
             "next_page":next_page
         })
@@ -107,7 +107,7 @@ async def register_get(request: Request):
         "request": request,
         "title": "Registro de usuário",
         "alerts": [],
-        "now": datetime.now(),
+
         "csrf_token": csrf_token,
     })
 
@@ -126,7 +126,7 @@ async def register_post(
             "request": request,
             "title": "Registro de usuário",
             "alerts": [{"text": "Token CSRF inválido.", "class": "alert-danger"}],
-            "now": datetime.now(),
+
             "csrf_token": get_csrf_token(request),
         })
 
