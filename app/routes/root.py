@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse
 from app.core.templates import templates  # reutilizando
 from datetime import datetime
 from app.auth.utils import get_current_user
+import markdown
 
 router = APIRouter(prefix="", tags=["Root"])
 
@@ -27,3 +28,13 @@ async def root(request: Request):
         "message": "Bem-vindo à aplicação FastAPI com login!",
         "user" : get_current_user(request)
     })
+
+@router.get("/readme", response_class=HTMLResponse)
+async def readme():
+    try:
+        with open("README.md", "r", encoding="utf-8") as file:
+            content = file.read()
+        html_content = markdown.markdown(content)
+        return HTMLResponse(content=html_content)
+    except Exception as e:
+        return HTMLResponse(content=f"<h1>Erro ao carregar README.md</h1><p>{str(e)}</p>", status_code=500)

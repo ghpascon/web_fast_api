@@ -6,6 +6,7 @@
 
     <form method="post" action="/auth/login">
         <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <input type="hidden" name="next_page" value="{{ next_page }}">
 
         <div class="mb-3">
             <label for="username" class="form-label">Usuário</label>

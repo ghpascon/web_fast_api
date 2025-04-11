@@ -19,7 +19,7 @@ router = APIRouter(prefix="/auth", tags=["Auth"])
 
 # Login GET route
 @router.get("/login", response_class=HTMLResponse)
-async def login_get(request: Request, mensagem: str = Query(None)):
+async def login_get(request: Request, mensagem: str = Query(None), next_page: str = Query(None)):
     csrf_token = get_csrf_token(request)
     if mensagem:
         msg_alert = {"text":mensagem, "class": "alert-primary"}
@@ -30,6 +30,7 @@ async def login_get(request: Request, mensagem: str = Query(None)):
         "alerts": [msg_alert],
         "now": datetime.now(),
         "csrf_token": csrf_token,
+        "next_page":next_page
     })
 
 # Login POST route
@@ -38,7 +39,8 @@ async def login_post(
     request: Request,
     username: str = Form(...),
     password: str = Form(...),
-    csrf_token: str = Form(...)
+    csrf_token: str = Form(...),
+    next_page: str = Form(...),
 ):
     # CSRF token validation
     if not validate_csrf_token(request, csrf_token):
@@ -48,6 +50,7 @@ async def login_post(
             "alerts": [{"text": "Token CSRF inválido.", "class": "alert-danger"}],
             "now": datetime.now(),
             "csrf_token": get_csrf_token(request),
+            "next_page":next_page
         })
 
     try:
@@ -61,6 +64,7 @@ async def login_post(
             "alerts": [{"text": str(e), "class": "alert-danger"}],
             "now": datetime.now(),
             "csrf_token": get_csrf_token(request),
+            "next_page":next_page
         })
 
     # Check if the user exists and password matches
@@ -74,6 +78,7 @@ async def login_post(
             "alerts": [{"text": "Usuário ou senha incorretos.", "class": "alert-danger"}],
             "now": datetime.now(),
             "csrf_token": get_csrf_token(request),
+            "next_page":next_page
         })
 
     # Log the user in if credentials are valid
@@ -82,7 +87,11 @@ async def login_post(
         "username":user.username
     }
     login_user(request, user_dict)
-    return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
+    if next_page and not next_page == "None":
+        page = next_page
+    else:
+        page = "/"
+    return RedirectResponse(page, status_code=status.HTTP_302_FOUND)
 
 # Logout route
 @router.get("/logout")

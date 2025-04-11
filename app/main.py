@@ -12,19 +12,9 @@ readme_content = readme_path.read_text(encoding="utf-8")
 
 
 app = FastAPI(
-    title="WEB FASTAPI",
-    description=readme_content,
-    version="1.0.0",
-    terms_of_service="https://meusite.com/termos",
-    contact={
-        "name": "Gabriel Henrique Pascon",
-        "url": "https://github.com/ghpascon",
-        "email": "gh.pascon@gmail.com",
-    },
-    license_info={
-        "name": "MIT",
-        "url": "https://opensource.org/licenses/MIT",
-    }
+    docs_url=None,
+    redoc_url=None,
+    openapi_url=None
 )
 
 app.add_middleware(

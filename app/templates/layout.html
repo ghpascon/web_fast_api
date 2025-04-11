@@ -14,10 +14,11 @@
         <div class="container d-flex justify-content-between align-items-center">
             <h1 class="h4 mb-0">Minha Aplicação FastAPI</h1>
             <nav>
-                <a href="/" class="btn btn-light">Home</a>
+                <a href="/protected/simple" class="btn btn-dark">🔒🔒🔒</a>
                 {% if not user %}
                 <a href="/auth/register" class="btn btn-light">Registrar</a>
                 {% endif %}
+                <a href="/" class="btn btn-light">Home</a>
             </nav>
         </div>
     </header>

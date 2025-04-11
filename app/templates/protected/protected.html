@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% if user %}
+<h2>Você acessou a rota protegida como <strong>{{ user.id }} - {{ user.username }}</strong> </h2>
+{% else %}
+<h2>Acesso a rota protegida sem login???</h2>
+{% endif %}
+
+{% endblock %}
