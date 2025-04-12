@@ -27,10 +27,12 @@ app.add_middleware(
 )
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-def include_all_routes():
-    routes_path = os.path.join(os.path.dirname(__file__), "routes")
+def include_all_routes(current_path):
+    routes_path = os.path.join(os.path.dirname(__file__), current_path)
 
     for filename in os.listdir(routes_path):
+        if not filename == "__pycache__" and not "." in filename:
+            include_all_routes(current_path + '/' + filename)
         if filename.endswith(".py") and filename != "__init__.py":
             module_name = filename[:-3]
             file_path = os.path.join(routes_path, filename)
@@ -47,7 +49,7 @@ def include_all_routes():
             except Exception as e:
                 print(f"❌ Erro ao importar {filename}: {e}")
 
-include_all_routes()
+include_all_routes("routes")
 
 # python -m app.db.database
 # uvicorn app.main:app --reload
